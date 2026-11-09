@@ -21,3 +21,30 @@ export const STORAGE_KEYS = {
   blocknote: "folio-lab:blocknote:v1",
   plate: "folio-lab:plate:v1",
 } as const;
+
+function collectText(value: unknown, output: string[]) {
+  if (typeof value === "string") {
+    output.push(value);
+    return;
+  }
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectText(item, output));
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+  const record = value as Record<string, unknown>;
+  if (typeof record.text === "string") output.push(record.text);
+  if (record.content) collectText(record.content, output);
+  if (record.children) collectText(record.children, output);
+}
+
+export function outlineFromDocument(blocks: unknown[]) {
+  return blocks.map((block, index) => {
+    const record = block && typeof block === "object" ? block as Record<string, unknown> : {};
+    const text: string[] = [];
+    collectText(record.content ?? record.children, text);
+    const type = typeof record.type === "string" ? record.type : "block";
+    const label = text.join(" ").replace(/\s+/g, " ").trim().slice(0, 54);
+    return { type, label: label || `${type} ${index + 1}` };
+  });
+}

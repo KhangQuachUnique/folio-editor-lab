@@ -5,7 +5,7 @@ Status: **Implemented and locally verified; recommendation not yet accepted**
 
 ## 1. Decision in one paragraph
 
-Use **Tiptap** for the Wridea product spike. It gives the strongest fit for a custom publishing schema, had the smallest JavaScript/memory footprint in this bounded test, and showed the lowest long-document typing latency. The cost is real: slash UI, block handles, polished media controls, and magazine layout UX must be designed and maintained by Wridea. Choose **BlockNote** instead only if shipping a polished Notion-like MVP faster matters more than schema/layout control and the team accepts either custom column work or the GPL/commercial multi-column package. Plate is capable and MIT, but this prototype required the most editor wiring and had the highest median heap after the long fixture.
+Use **Tiptap** for the Wridea product spike. It gives the strongest fit for a custom publishing schema, retained the lowest long-document typing latency and heap after the UX v2 additions, and supports official bubble-menu and drag-handle primitives. Plate's route is now smaller and mounts slightly faster, so Tiptap is not the universal performance winner. The remaining Tiptap cost is real: slash UI, polished media controls, and magazine layout UX must be designed and maintained by Wridea. Choose **BlockNote** instead if shipping a polished Notion-like MVP faster matters more than schema/layout control and the team accepts either custom column work or the GPL/commercial multi-column package.
 
 ## 2. Architecture and fair-test contract
 
@@ -31,7 +31,9 @@ The serialized schemas are intentionally not forced into one artificial intercha
 |---|---|---|---|
 | Basic formatting/history | Native StarterKit | Native UI | First-party plugins |
 | Slash commands | Small custom menu; full UX must be built | Native menu + custom items | Small custom menu; full registry UI is app-owned |
-| Block drag/drop | Draggable schema nodes; polished handle still custom | Native side menu/handle | DndPlugin available; registry handle UI still needed |
+| Block library | Shared Wridea click/drag UI; engine adapter verified | Shared Wridea UI plus native slash menu | Shared Wridea click/drag UI; engine adapter verified |
+| Block reorder | Official DragHandle plus shared guarded navigator | Native side menu plus shared guarded navigator | Shared guarded navigator; polished in-canvas handle still app-owned |
+| Selection toolbar | Official BubbleMenu, configured by the app | Native formatting toolbar | Small app-owned floating toolbar using Plate transforms |
 | Image insert | Image extension | Native image block | Media plugin |
 | Image resize | Tiptap 3 resize node view | Native preview resize | Custom persistent range control in this lab; first-party resizable primitives exist |
 | Image alignment | Custom image attribute/UI | Native block alignment | Custom node property/UI |
@@ -50,14 +52,14 @@ Local environment: Node 26.13.0, Playwright Chromium 158 fallback build, Next.js
 
 | Engine | Editor ready | Route JS transfer | JS decoded | Typing ms/character | p95 typing | Heap after long fixture |
 |---|---:|---:|---:|---:|---:|---:|
-| Tiptap | 338 ms | 282 KiB | 900 KiB | 2.62 ms | 3.00 ms | 12.0 MiB |
-| BlockNote | 357 ms | 458 KiB | 1,494 KiB | 4.89 ms | 5.11 ms | 16.4 MiB |
-| Plate | 321 ms | 316 KiB | 1,051 KiB | 4.80 ms | 6.26 ms | 19.5 MiB |
+| Tiptap | 359 ms | 357 KiB | 1,145 KiB | 4.03 ms | 4.83 ms | 14.0 MiB |
+| BlockNote | 362 ms | 460 KiB | 1,501 KiB | 5.04 ms | 5.47 ms | 24.1 MiB |
+| Plate | 330 ms | 319 KiB | 1,058 KiB | 6.66 ms | 6.94 ms | 29.1 MiB |
 
 Interpretation:
 
-- Tiptap was clearly lighter in this implementation and typing fixture.
-- Plate mounted fastest by a small amount, but one of three heap samples rose to 37.1 MiB; the median is reported, and the variance needs more runs before making a memory claim.
+- Tiptap had the lowest typing latency and long-fixture heap, but its official drag-handle addition made its route larger than Plate's.
+- Plate mounted fastest and transferred the least route JavaScript, while using the most heap after the long fixture in this run.
 - BlockNote pays for a much richer ready-made UI. Its larger route is expected, not automatically a product failure.
 - CPU was not sampled as a standalone percentage. Typing latency is the useful interaction proxy used here.
 - Playwright transport overhead is included in typing timing, so compare engines within this run; do not treat the absolute numbers as end-user latency.
@@ -84,11 +86,11 @@ Weights reflect Wridea’s stated product: product fit 35, author UX 25, measure
 
 | Engine | Product fit /35 | Author UX /25 | Performance /20 | Cost efficiency /20 | Total /100 |
 |---|---:|---:|---:|---:|---:|
-| Tiptap | 32 | 19 | 19 | 12 | **82** |
-| BlockNote | 25 | 24 | 14 | 18 | **81** |
-| Plate | 30 | 18 | 14 | 12 | **74** |
+| Tiptap | 32 | 20 | 18 | 12 | **82** |
+| BlockNote | 25 | 24 | 13 | 18 | **80** |
+| Plate | 30 | 19 | 15 | 12 | **76** |
 
-The one-point gap between Tiptap and BlockNote is deliberate: this is a product trade-off, not a universal winner. If the priority changes from magazine control to fastest Notion-like MVP, BlockNote becomes the recommendation.
+The score is directional: this is a product trade-off, not a universal winner. Tiptap gains author-UX evidence from the verified bubble toolbar and guarded drag path; Plate gains measured route-size evidence. If the priority changes from magazine control to fastest Notion-like MVP, BlockNote becomes the recommendation.
 
 ## 7. Why Lexical is deferred
 

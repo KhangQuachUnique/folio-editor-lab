@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-09T07:52:16.638Z",
+  "generatedAt": "2026-11-09T08:20:25.034Z",
   "environment": {
     "node": "v26.13.0",
     "browser": "Playwright Chromium",
@@ -11,139 +11,139 @@
   "summary": {
     "tiptap": {
       "runs": 3,
-      "medianWallReadyMs": 865.7313410000002,
-      "medianEditorReadyMs": 337.59999999403954,
-      "medianJsTransferBytes": 288817,
-      "medianJsDecodedBytes": 921264,
-      "medianTypingMsPerCharacter": 2.617440375000001,
-      "p95TypingMsPerCharacter": 2.999197875,
-      "medianHeapBytesAfterLong": 12544278
+      "medianWallReadyMs": 889.1886869999998,
+      "medianEditorReadyMs": 359,
+      "medianJsTransferBytes": 365917,
+      "medianJsDecodedBytes": 1172430,
+      "medianTypingMsPerCharacter": 4.031231562499997,
+      "p95TypingMsPerCharacter": 4.833255125000001,
+      "medianHeapBytesAfterLong": 14682850
     },
     "blocknote": {
       "runs": 3,
-      "medianWallReadyMs": 887.8995730000006,
-      "medianEditorReadyMs": 357.1000000089407,
-      "medianJsTransferBytes": 469481,
-      "medianJsDecodedBytes": 1529548,
-      "medianTypingMsPerCharacter": 4.890604187500003,
-      "p95TypingMsPerCharacter": 5.113128343749992,
-      "medianHeapBytesAfterLong": 17158408
+      "medianWallReadyMs": 889.0034520000004,
+      "medianEditorReadyMs": 362,
+      "medianJsTransferBytes": 471528,
+      "medianJsDecodedBytes": 1536815,
+      "medianTypingMsPerCharacter": 5.037065250000012,
+      "p95TypingMsPerCharacter": 5.473651531249999,
+      "medianHeapBytesAfterLong": 25237276
     },
     "plate": {
       "runs": 3,
-      "medianWallReadyMs": 852.0642280000002,
-      "medianEditorReadyMs": 320.70000000298023,
-      "medianJsTransferBytes": 323852,
-      "medianJsDecodedBytes": 1075768,
-      "medianTypingMsPerCharacter": 4.800837750000028,
-      "p95TypingMsPerCharacter": 6.25762793749999,
-      "medianHeapBytesAfterLong": 20466662
+      "medianWallReadyMs": 855.9638510000004,
+      "medianEditorReadyMs": 329.70000000298023,
+      "medianJsTransferBytes": 326274,
+      "medianJsDecodedBytes": 1083021,
+      "medianTypingMsPerCharacter": 6.660324781249983,
+      "p95TypingMsPerCharacter": 6.936508468749992,
+      "medianHeapBytesAfterLong": 30556962
     }
   },
   "raw": {
     "tiptap": [
       {
         "run": 1,
-        "wallReadyMs": 890.175322,
-        "typingTotalMs": 95.974332,
-        "typingMsPerCharacter": 2.999197875,
-        "heapBytesAfterLong": 12555934,
-        "editorReadyMs": 355.90000000596046,
-        "jsTransferBytes": 288817,
-        "jsDecodedBytes": 921264,
-        "heapBytesBeforeLong": 7512626
+        "wallReadyMs": 925.7193159999999,
+        "typingTotalMs": 154.66416400000003,
+        "typingMsPerCharacter": 4.833255125000001,
+        "heapBytesAfterLong": 14730590,
+        "editorReadyMs": 386.40000000596046,
+        "jsTransferBytes": 365917,
+        "jsDecodedBytes": 1172430,
+        "heapBytesBeforeLong": 7712933
       },
       {
         "run": 2,
-        "wallReadyMs": 865.7313410000002,
-        "typingTotalMs": 83.75809200000003,
-        "typingMsPerCharacter": 2.617440375000001,
-        "heapBytesAfterLong": 12520479,
-        "editorReadyMs": 337.59999999403954,
-        "jsTransferBytes": 288817,
-        "jsDecodedBytes": 921264,
-        "heapBytesBeforeLong": 7516363
+        "wallReadyMs": 889.1886869999998,
+        "typingTotalMs": 128.9994099999999,
+        "typingMsPerCharacter": 4.031231562499997,
+        "heapBytesAfterLong": 14682850,
+        "editorReadyMs": 359,
+        "jsTransferBytes": 365917,
+        "jsDecodedBytes": 1172430,
+        "heapBytesBeforeLong": 7689093
       },
       {
         "run": 3,
-        "wallReadyMs": 863.3110139999999,
-        "typingTotalMs": 83.18323899999996,
-        "typingMsPerCharacter": 2.5994762187499987,
-        "heapBytesAfterLong": 12544278,
-        "editorReadyMs": 337.09999999403954,
-        "jsTransferBytes": 288817,
-        "jsDecodedBytes": 921264,
-        "heapBytesBeforeLong": 7491278
+        "wallReadyMs": 882.9626089999997,
+        "typingTotalMs": 117.89707599999974,
+        "typingMsPerCharacter": 3.684283624999992,
+        "heapBytesAfterLong": 14627582,
+        "editorReadyMs": 351.79999999701977,
+        "jsTransferBytes": 365917,
+        "jsDecodedBytes": 1172430,
+        "heapBytesBeforeLong": 7719441
       }
     ],
     "blocknote": [
       {
         "run": 1,
-        "wallReadyMs": 878.41066,
-        "typingTotalMs": 140.39559499999996,
-        "typingMsPerCharacter": 4.387362343749999,
-        "heapBytesAfterLong": 17118415,
-        "editorReadyMs": 351.79999999701977,
-        "jsTransferBytes": 469481,
-        "jsDecodedBytes": 1529548,
-        "heapBytesBeforeLong": 9095060
+        "wallReadyMs": 889.0034520000004,
+        "typingTotalMs": 153.46003199999996,
+        "typingMsPerCharacter": 4.795625999999999,
+        "heapBytesAfterLong": 25241600,
+        "editorReadyMs": 361.6000000089407,
+        "jsTransferBytes": 471528,
+        "jsDecodedBytes": 1536815,
+        "heapBytesBeforeLong": 9309084
       },
       {
         "run": 2,
-        "wallReadyMs": 900.6527329999999,
-        "typingTotalMs": 156.4993340000001,
-        "typingMsPerCharacter": 4.890604187500003,
-        "heapBytesAfterLong": 17176896,
-        "editorReadyMs": 364,
-        "jsTransferBytes": 469481,
-        "jsDecodedBytes": 1529548,
-        "heapBytesBeforeLong": 9100165
+        "wallReadyMs": 892.580215,
+        "typingTotalMs": 161.18608800000038,
+        "typingMsPerCharacter": 5.037065250000012,
+        "heapBytesAfterLong": 25237276,
+        "editorReadyMs": 364.1000000089407,
+        "jsTransferBytes": 471528,
+        "jsDecodedBytes": 1536815,
+        "heapBytesBeforeLong": 9336492
       },
       {
         "run": 3,
-        "wallReadyMs": 887.8995730000006,
-        "typingTotalMs": 163.62010699999973,
-        "typingMsPerCharacter": 5.113128343749992,
-        "heapBytesAfterLong": 17158408,
-        "editorReadyMs": 357.1000000089407,
-        "jsTransferBytes": 469481,
-        "jsDecodedBytes": 1529548,
-        "heapBytesBeforeLong": 9135973
+        "wallReadyMs": 887.7515469999998,
+        "typingTotalMs": 175.15684899999997,
+        "typingMsPerCharacter": 5.473651531249999,
+        "heapBytesAfterLong": 25218432,
+        "editorReadyMs": 362,
+        "jsTransferBytes": 471528,
+        "jsDecodedBytes": 1536815,
+        "heapBytesBeforeLong": 9312744
       }
     ],
     "plate": [
       {
         "run": 1,
-        "wallReadyMs": 852.0642280000002,
-        "typingTotalMs": 200.24409399999968,
-        "typingMsPerCharacter": 6.25762793749999,
-        "heapBytesAfterLong": 38947866,
-        "editorReadyMs": 320.70000000298023,
-        "jsTransferBytes": 323852,
-        "jsDecodedBytes": 1075768,
-        "heapBytesBeforeLong": 8832349
+        "wallReadyMs": 855.2768889999998,
+        "typingTotalMs": 190.52489499999865,
+        "typingMsPerCharacter": 5.953902968749958,
+        "heapBytesAfterLong": 30556962,
+        "editorReadyMs": 329.70000000298023,
+        "jsTransferBytes": 326274,
+        "jsDecodedBytes": 1083021,
+        "heapBytesBeforeLong": 9002425
       },
       {
         "run": 2,
-        "wallReadyMs": 850.3147110000009,
-        "typingTotalMs": 153.6268080000009,
-        "typingMsPerCharacter": 4.800837750000028,
-        "heapBytesAfterLong": 20404241,
-        "editorReadyMs": 322.59999999403954,
-        "jsTransferBytes": 323852,
-        "jsDecodedBytes": 1075768,
-        "heapBytesBeforeLong": 8829724
+        "wallReadyMs": 855.9638510000004,
+        "typingTotalMs": 221.96827099999973,
+        "typingMsPerCharacter": 6.936508468749992,
+        "heapBytesAfterLong": 30486201,
+        "editorReadyMs": 329.29999999701977,
+        "jsTransferBytes": 326274,
+        "jsDecodedBytes": 1083021,
+        "heapBytesBeforeLong": 9022256
       },
       {
         "run": 3,
-        "wallReadyMs": 863.6619879999998,
-        "typingTotalMs": 147.39802100000088,
-        "typingMsPerCharacter": 4.6061881562500275,
-        "heapBytesAfterLong": 20466662,
-        "editorReadyMs": 318.5,
-        "jsTransferBytes": 323852,
-        "jsDecodedBytes": 1075768,
-        "heapBytesBeforeLong": 8819909
+        "wallReadyMs": 865.1100719999995,
+        "typingTotalMs": 213.13039299999946,
+        "typingMsPerCharacter": 6.660324781249983,
+        "heapBytesAfterLong": 33669650,
+        "editorReadyMs": 334.5,
+        "jsTransferBytes": 326274,
+        "jsDecodedBytes": 1083021,
+        "heapBytesBeforeLong": 8978653
       }
     ]
   }

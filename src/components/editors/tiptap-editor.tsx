@@ -1,17 +1,20 @@
 "use client";
 
 import { mergeAttributes, Node, type JSONContent } from "@tiptap/core";
+import DragHandle from "@tiptap/extension-drag-handle-react";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyleKit } from "@tiptap/extension-text-style";
 import { EditorContent, useEditor } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
 import { useCallback, useEffect, useState } from "react";
-import { LabFrame } from "@/components/lab/lab-frame";
+import { LabFrame, type BlockKind } from "@/components/lab/lab-frame";
 import {
   type Capability,
   longParagraphs,
+  outlineFromDocument,
   paragraphs,
   SAMPLE_IMAGE,
   STORAGE_KEYS,
@@ -90,7 +93,7 @@ function longContent(): JSONContent {
 const capabilities: Capability[] = [
   { label: "Formatting", status: "native", note: "StarterKit and text-style extensions." },
   { label: "Slash menu", status: "custom", note: "A product-grade menu needs custom suggestion UI." },
-  { label: "Drag/drop", status: "extension", note: "ProseMirror supports draggable nodes; polished handles need extra UI." },
+  { label: "Drag/drop", status: "extension", note: "Official DragHandle plus Wridea's guarded block navigator." },
   { label: "Image resize", status: "extension", note: "Tiptap 3 image resize node view." },
   { label: "Typography", status: "extension", note: "TextStyleKit plus product CSS." },
   { label: "Columns", status: "custom", note: "Custom schema nodes in this lab." },
@@ -176,6 +179,30 @@ export default function TiptapEditor() {
     setSlashOpen(false);
   };
 
+  const insertBlock = (kind: BlockKind) => {
+    if (!editor) return;
+    if (kind === "image" || kind === "columns" || kind === "callout" || kind === "heading") {
+      runSlash(kind);
+      return;
+    }
+    if (kind === "paragraph") {
+      editor.chain().focus().insertContent({ type: "paragraph", content: [{ type: "text", text: "New paragraph" }] }).run();
+    }
+    if (kind === "quote") {
+      editor.chain().focus().insertContent({ type: "blockquote", content: [{ type: "paragraph", content: [{ type: "text", text: "New pull quote" }] }] }).run();
+    }
+  };
+
+  const reorderBlock = (from: number, to: number) => {
+    if (!editor) return;
+    const document = editor.getJSON();
+    const content = [...(document.content ?? [])];
+    if (from < 0 || to < 0 || from >= content.length || to >= content.length) return;
+    const [moved] = content.splice(from, 1);
+    content.splice(to, 0, moved);
+    editor.commands.setContent({ ...document, content });
+  };
+
   const toolbar = editor ? (
     <>
       <button type="button" className={editor.isActive("bold") ? "is-active" : ""} onClick={() => editor.chain().focus().toggleBold().run()}><b>B</b></button>
@@ -212,6 +239,9 @@ export default function TiptapEditor() {
       }}
       onReset={() => editor?.commands.setContent(initialContent)}
       onLoadLong={loadLong}
+      onInsertBlock={insertBlock}
+      outline={outlineFromDocument(json.content ?? [])}
+      onReorderBlock={reorderBlock}
     >
       {slashOpen ? (
         <div className="slash-menu" role="menu" aria-label="Insert block">
@@ -220,6 +250,31 @@ export default function TiptapEditor() {
           <button type="button" onClick={() => runSlash("columns")}>Two columns</button>
           <button type="button" onClick={() => runSlash("callout")}>Callout</button>
         </div>
+      ) : null}
+      {editor ? (
+        <>
+          <BubbleMenu
+            editor={editor}
+            options={{ placement: "top", offset: 10 }}
+            shouldShow={({ from, to }) => from !== to}
+          >
+            <div className="quick-format-toolbar" data-testid="quick-format-toolbar">
+              <button type="button" onClick={() => editor.chain().focus().toggleBold().run()}><b>B</b></button>
+              <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()}><i>I</i></button>
+              <button type="button" onClick={() => editor.chain().focus().setColor("#2345c7").run()}>Blue</button>
+              <button type="button" onClick={() => editor.chain().focus().setTextAlign("center").run()}>Center</button>
+            </div>
+          </BubbleMenu>
+          <DragHandle
+            editor={editor}
+            nested={{ edgeDetection: { threshold: -12 } }}
+            onElementDragStart={(event) => {
+              if (!event.ctrlKey && !event.metaKey) event.preventDefault();
+            }}
+          >
+            <button className="tiptap-drag-handle" type="button" title="Ctrl/⌘ + kéo để di chuyển block">⠿</button>
+          </DragHandle>
+        </>
       ) : null}
       <EditorContent editor={editor} />
     </LabFrame>

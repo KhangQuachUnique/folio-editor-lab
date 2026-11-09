@@ -32,12 +32,15 @@ import {
   useEditorRef,
   usePath,
   usePlateEditor,
+  useSelectionExpanded,
 } from "platejs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { LabFrame } from "@/components/lab/lab-frame";
+import { createPortal } from "react-dom";
+import { LabFrame, type BlockKind } from "@/components/lab/lab-frame";
 import {
   type Capability,
   longParagraphs,
+  outlineFromDocument,
   paragraphs,
   SAMPLE_IMAGE,
   STORAGE_KEYS,
@@ -80,8 +83,7 @@ function ColumnGroupElement(props: PlateElementProps) {
 }
 
 function ColumnElement(props: PlateElementProps) {
-  const width = (props.element as { width?: string }).width;
-  return <PlateElement {...props} as="div" className="plate-column" style={{ width }} />;
+  return <PlateElement {...props} as="div" className="plate-column" />;
 }
 
 function ImageElement(props: PlateElementProps) {
@@ -191,6 +193,46 @@ const capabilities: Capability[] = [
 
 const moduleStartedAt = typeof performance === "undefined" ? 0 : performance.now();
 
+function PlateQuickToolbar() {
+  const editor = useEditorRef();
+  const expanded = useSelectionExpanded();
+  const [position, setPosition] = useState<{ left: number; top: number } | null>(null);
+
+  useEffect(() => {
+    if (!expanded) return;
+    const frame = requestAnimationFrame(() => {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+        setPosition(null);
+        return;
+      }
+      const rect = selection.getRangeAt(0).getBoundingClientRect();
+      setPosition({ left: rect.left + rect.width / 2, top: Math.max(8, rect.top - 12) });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [expanded]);
+
+  if (!expanded || !position) return null;
+  const keepSelection = (callback: () => void) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    callback();
+  };
+
+  return createPortal(
+    <div
+      className="quick-format-toolbar plate-quick-toolbar"
+      data-testid="quick-format-toolbar"
+      style={{ left: position.left, top: position.top }}
+    >
+      <button type="button" onMouseDown={keepSelection(() => editor.tf.toggleMark("bold"))}><b>B</b></button>
+      <button type="button" onMouseDown={keepSelection(() => editor.tf.toggleMark("italic"))}><i>I</i></button>
+      <button type="button" onMouseDown={keepSelection(() => editor.tf.addMark("color", "#2345c7"))}>Blue</button>
+      <button type="button" onMouseDown={keepSelection(() => editor.tf.setNodes({ align: "center" }))}>Center</button>
+    </div>,
+    document.body,
+  );
+}
+
 type SurfaceProps = {
   value: Value;
   onChange: (value: Value) => void;
@@ -226,6 +268,7 @@ function PlateSurface({ value, onChange, onReady }: SurfaceProps) {
         </div>
       ) : null}
       <Plate editor={editor} onValueChange={({ value: nextValue }) => onChange(nextValue)}>
+        <PlateQuickToolbar />
         <PlateContent
           className="plate-editor"
           data-testid="editor-input"
@@ -271,6 +314,34 @@ export default function PlateEditor() {
   }, [loadLong, mountMs, value]);
 
   const editor = editorRef.current;
+  const insertBlock = (kind: BlockKind) => {
+    const instance = editorRef.current;
+    if (!instance) return;
+    if (kind === "image") {
+      insertImage(instance, SAMPLE_IMAGE);
+      return;
+    }
+    if (kind === "columns") {
+      insertColumnGroup(instance, { columns: 2 });
+      return;
+    }
+    const blocks: Record<Exclude<BlockKind, "image" | "columns">, Value[number]> = {
+      paragraph: { type: "p", children: [{ text: "New paragraph" }] },
+      heading: { type: "h2", children: [{ text: "New section" }] },
+      quote: { type: "blockquote", children: [{ text: "New pull quote" }] },
+      callout: { type: "callout", children: [{ text: "New callout" }] },
+    };
+    instance.tf.insertNodes(blocks[kind]);
+  };
+
+  const reorderBlock = (from: number, to: number) => {
+    const current = [...(editorRef.current?.children ?? value)] as Value;
+    if (from < 0 || to < 0 || from >= current.length || to >= current.length) return;
+    const [moved] = current.splice(from, 1);
+    current.splice(to, 0, moved);
+    replaceDocument(current);
+  };
+
   const toolbar = (
     <>
       <button type="button" onClick={() => editor?.tf.toggleMark("bold")}><b>B</b></button>
@@ -307,6 +378,9 @@ export default function PlateEditor() {
       }}
       onReset={() => replaceDocument(initialValue)}
       onLoadLong={loadLong}
+      onInsertBlock={insertBlock}
+      outline={outlineFromDocument(value)}
+      onReorderBlock={reorderBlock}
     >
       <PlateSurface key={revision} value={value} onChange={setValue} onReady={handleReady} />
     </LabFrame>

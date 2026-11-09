@@ -15,7 +15,10 @@ Lexical is intentionally deferred. The three approved candidates already cover t
 Each engine has an isolated route with the same editorial fixture and controls for:
 
 - rich-text formatting, undo, and redo;
+- selection-based quick formatting (native in BlockNote, lab UI for Tiptap and Plate);
 - slash commands;
+- a shared block library with click or drag insertion;
+- a shared document navigator with guarded `Ctrl`/`⌘` drag reordering and keyboard-accessible move buttons;
 - image insertion, alignment/resize path;
 - typography and spacing controls;
 - two-column composition;
@@ -45,6 +48,7 @@ src/lib/fixtures.ts         # shared content and 250-block fixture
 tests/                      # Playwright behavior checks
 scripts/benchmark.mjs       # bounded local benchmark
 docs/EVALUATION.md          # feature matrix, scores, recommendation
+docs/UX-V2.md               # interaction contract and known prototype limits
 docs/benchmark-results.json # raw and summarized measurements
 docs/DECISIONS.md           # confirmed project decisions
 ```
@@ -83,9 +87,10 @@ npm run benchmark
 
 ## Current result
 
-The provisional recommendation is **Tiptap** for the main product. It produced the lightest route and best long-document typing result in this lab, while offering the most direct control over a product-specific document schema. BlockNote remains the fastest route to a polished Notion-style MVP; Plate remains a capable alternative when owning a broad, app-local UI/plugin stack is desirable.
+The provisional recommendation is **Tiptap** for the main product. After the UX v2 additions it still produced the best long-document typing result and lowest long-fixture heap in this lab, while offering the most direct control over a product-specific document schema. Plate now has the smallest route transfer; BlockNote remains the fastest route to a polished Notion-style MVP.
 
 Read the evidence and caveats in [docs/EVALUATION.md](docs/EVALUATION.md).
+The shared interaction model is documented in [docs/UX-V2.md](docs/UX-V2.md).
 
 ## Scope boundary
 

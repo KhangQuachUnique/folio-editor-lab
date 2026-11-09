@@ -17,3 +17,9 @@
 - **Decision:** Use `https://github.com/KhangQuachUnique/folio-editor-lab.git` with default branch `main`.
 - **Scope:** Source control for this lab.
 - **Rationale:** This is the user-provided repository for the approved experiment.
+
+## 2026-11-09 — UX v2 comparison contract
+
+- **Decision:** Add the same Wridea block library and guarded `Ctrl`/`⌘` reorder navigator to all three prototypes, while retaining each engine's native editing controls where available.
+- **Scope:** Comparable authoring workflow inside the selection lab; not the final production editor UI.
+- **Rationale:** The shared shell makes insertion and reordering directly comparable, while native BlockNote controls and official Tiptap primitives still expose the real build-versus-buy trade-off.

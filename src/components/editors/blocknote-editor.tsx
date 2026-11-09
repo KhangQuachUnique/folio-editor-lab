@@ -19,10 +19,11 @@ import {
   useCreateBlockNote,
 } from "@blocknote/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { LabFrame } from "@/components/lab/lab-frame";
+import { LabFrame, type BlockKind } from "@/components/lab/lab-frame";
 import {
   type Capability,
   longParagraphs,
+  outlineFromDocument,
   paragraphs,
   SAMPLE_IMAGE,
   STORAGE_KEYS,
@@ -120,7 +121,11 @@ const moduleStartedAt = typeof performance === "undefined" ? 0 : performance.now
 export default function BlockNoteEditor() {
   const [mountMs, setMountMs] = useState<number | null>(null);
   const [json, setJson] = useState<unknown>(initialContent);
-  const editor = useCreateBlockNote({ schema, initialContent });
+  const editor = useCreateBlockNote({
+    schema,
+    initialContent,
+    sideMenu: { hoverMargin: 48, dropMargin: 320 },
+  });
 
   const replaceDocument = useCallback((blocks: LabBlock[]) => {
     editor.replaceBlocks(editor.document, blocks);
@@ -169,8 +174,33 @@ export default function BlockNoteEditor() {
   ], [editor]);
 
   const insertAfterCursor = (block: LabBlock) => {
-    const cursor = editor.getTextCursorPosition();
-    editor.insertBlocks([block], cursor.block, "after");
+    try {
+      const cursor = editor.getTextCursorPosition();
+      editor.insertBlocks([block], cursor.block, "after");
+    } catch {
+      const lastBlock = editor.document.at(-1);
+      if (lastBlock) editor.insertBlocks([block], lastBlock, "after");
+    }
+  };
+
+  const insertBlock = (kind: BlockKind) => {
+    const blocks: Record<BlockKind, LabBlock> = {
+      paragraph: { type: "paragraph", content: "New paragraph" },
+      heading: { type: "heading", props: { level: 2 }, content: "New section" },
+      quote: { type: "quote", content: "New pull quote" },
+      image: { type: "image", props: { url: SAMPLE_IMAGE, caption: "Inserted image", previewWidth: 640 } },
+      columns: { type: "magazineColumns", children: [{ type: "paragraph", content: "Left story" }, { type: "paragraph", content: "Right story" }] },
+      callout: { type: "callout", content: "New callout" },
+    };
+    insertAfterCursor(blocks[kind]);
+  };
+
+  const reorderBlock = (from: number, to: number) => {
+    const blocks = [...editor.document] as unknown as LabBlock[];
+    if (from < 0 || to < 0 || from >= blocks.length || to >= blocks.length) return;
+    const [moved] = blocks.splice(from, 1);
+    blocks.splice(to, 0, moved);
+    replaceDocument(blocks);
   };
 
   const toolbar = (
@@ -204,6 +234,9 @@ export default function BlockNoteEditor() {
       }}
       onReset={() => replaceDocument(initialContent)}
       onLoadLong={loadLong}
+      onInsertBlock={insertBlock}
+      outline={outlineFromDocument(Array.isArray(json) ? json : [])}
+      onReorderBlock={reorderBlock}
     >
       <BlockNoteView
         editor={editor}
