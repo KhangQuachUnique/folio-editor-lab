@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Abstract editorial cover</title>
+  <desc id="desc">Cream paper with a cobalt circle, coral rectangle, and black typography.</desc>
+  <rect width="1200" height="675" fill="#ece8df"/>
+  <circle cx="852" cy="236" r="180" fill="#2345c7"/>
+  <rect x="672" y="340" width="410" height="170" rx="4" fill="#ef6d4f"/>
+  <path d="M80 550h1040" stroke="#161616" stroke-width="3"/>
+  <text x="80" y="140" font-family="Georgia,serif" font-size="74" fill="#161616">THE SHAPE</text>
+  <text x="80" y="215" font-family="Georgia,serif" font-size="74" fill="#161616">OF IDEAS</text>
+  <text x="84" y="602" font-family="Arial,sans-serif" font-size="24" letter-spacing="8" fill="#161616">WRIDEA / ISSUE 001</text>
+</svg>

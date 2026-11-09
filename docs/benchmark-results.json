@@ -1,0 +1,150 @@
+{
+  "generatedAt": "2026-11-09T07:52:16.638Z",
+  "environment": {
+    "node": "v26.13.0",
+    "browser": "Playwright Chromium",
+    "baseURL": "http://127.0.0.1:4173",
+    "fixtureBlocks": 250,
+    "runs": 3,
+    "note": "Directional local benchmark. Playwright transport overhead is included in typing latency."
+  },
+  "summary": {
+    "tiptap": {
+      "runs": 3,
+      "medianWallReadyMs": 865.7313410000002,
+      "medianEditorReadyMs": 337.59999999403954,
+      "medianJsTransferBytes": 288817,
+      "medianJsDecodedBytes": 921264,
+      "medianTypingMsPerCharacter": 2.617440375000001,
+      "p95TypingMsPerCharacter": 2.999197875,
+      "medianHeapBytesAfterLong": 12544278
+    },
+    "blocknote": {
+      "runs": 3,
+      "medianWallReadyMs": 887.8995730000006,
+      "medianEditorReadyMs": 357.1000000089407,
+      "medianJsTransferBytes": 469481,
+      "medianJsDecodedBytes": 1529548,
+      "medianTypingMsPerCharacter": 4.890604187500003,
+      "p95TypingMsPerCharacter": 5.113128343749992,
+      "medianHeapBytesAfterLong": 17158408
+    },
+    "plate": {
+      "runs": 3,
+      "medianWallReadyMs": 852.0642280000002,
+      "medianEditorReadyMs": 320.70000000298023,
+      "medianJsTransferBytes": 323852,
+      "medianJsDecodedBytes": 1075768,
+      "medianTypingMsPerCharacter": 4.800837750000028,
+      "p95TypingMsPerCharacter": 6.25762793749999,
+      "medianHeapBytesAfterLong": 20466662
+    }
+  },
+  "raw": {
+    "tiptap": [
+      {
+        "run": 1,
+        "wallReadyMs": 890.175322,
+        "typingTotalMs": 95.974332,
+        "typingMsPerCharacter": 2.999197875,
+        "heapBytesAfterLong": 12555934,
+        "editorReadyMs": 355.90000000596046,
+        "jsTransferBytes": 288817,
+        "jsDecodedBytes": 921264,
+        "heapBytesBeforeLong": 7512626
+      },
+      {
+        "run": 2,
+        "wallReadyMs": 865.7313410000002,
+        "typingTotalMs": 83.75809200000003,
+        "typingMsPerCharacter": 2.617440375000001,
+        "heapBytesAfterLong": 12520479,
+        "editorReadyMs": 337.59999999403954,
+        "jsTransferBytes": 288817,
+        "jsDecodedBytes": 921264,
+        "heapBytesBeforeLong": 7516363
+      },
+      {
+        "run": 3,
+        "wallReadyMs": 863.3110139999999,
+        "typingTotalMs": 83.18323899999996,
+        "typingMsPerCharacter": 2.5994762187499987,
+        "heapBytesAfterLong": 12544278,
+        "editorReadyMs": 337.09999999403954,
+        "jsTransferBytes": 288817,
+        "jsDecodedBytes": 921264,
+        "heapBytesBeforeLong": 7491278
+      }
+    ],
+    "blocknote": [
+      {
+        "run": 1,
+        "wallReadyMs": 878.41066,
+        "typingTotalMs": 140.39559499999996,
+        "typingMsPerCharacter": 4.387362343749999,
+        "heapBytesAfterLong": 17118415,
+        "editorReadyMs": 351.79999999701977,
+        "jsTransferBytes": 469481,
+        "jsDecodedBytes": 1529548,
+        "heapBytesBeforeLong": 9095060
+      },
+      {
+        "run": 2,
+        "wallReadyMs": 900.6527329999999,
+        "typingTotalMs": 156.4993340000001,
+        "typingMsPerCharacter": 4.890604187500003,
+        "heapBytesAfterLong": 17176896,
+        "editorReadyMs": 364,
+        "jsTransferBytes": 469481,
+        "jsDecodedBytes": 1529548,
+        "heapBytesBeforeLong": 9100165
+      },
+      {
+        "run": 3,
+        "wallReadyMs": 887.8995730000006,
+        "typingTotalMs": 163.62010699999973,
+        "typingMsPerCharacter": 5.113128343749992,
+        "heapBytesAfterLong": 17158408,
+        "editorReadyMs": 357.1000000089407,
+        "jsTransferBytes": 469481,
+        "jsDecodedBytes": 1529548,
+        "heapBytesBeforeLong": 9135973
+      }
+    ],
+    "plate": [
+      {
+        "run": 1,
+        "wallReadyMs": 852.0642280000002,
+        "typingTotalMs": 200.24409399999968,
+        "typingMsPerCharacter": 6.25762793749999,
+        "heapBytesAfterLong": 38947866,
+        "editorReadyMs": 320.70000000298023,
+        "jsTransferBytes": 323852,
+        "jsDecodedBytes": 1075768,
+        "heapBytesBeforeLong": 8832349
+      },
+      {
+        "run": 2,
+        "wallReadyMs": 850.3147110000009,
+        "typingTotalMs": 153.6268080000009,
+        "typingMsPerCharacter": 4.800837750000028,
+        "heapBytesAfterLong": 20404241,
+        "editorReadyMs": 322.59999999403954,
+        "jsTransferBytes": 323852,
+        "jsDecodedBytes": 1075768,
+        "heapBytesBeforeLong": 8829724
+      },
+      {
+        "run": 3,
+        "wallReadyMs": 863.6619879999998,
+        "typingTotalMs": 147.39802100000088,
+        "typingMsPerCharacter": 4.6061881562500275,
+        "heapBytesAfterLong": 20466662,
+        "editorReadyMs": 318.5,
+        "jsTransferBytes": 323852,
+        "jsDecodedBytes": 1075768,
+        "heapBytesBeforeLong": 8819909
+      }
+    ]
+  }
+}
